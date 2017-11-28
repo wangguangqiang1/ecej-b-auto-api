@@ -3,13 +3,17 @@
 
 
 __author__ = 'wgq'
+import os
+import sys
 import time
+
+sys.path.append(os.path.abspath('%s../../' % sys.path[0]))
 from CaseForScenario.BCreateOrder import *
 from CaseForUserAPP.TestLoginLoginIndex import TestLoginLoginIndex
 from CaseForUserAPP.TestAddAddress1 import TestAddAddress1
 from CaseForUserAPP.TestOrderQueryCount import TestOrderQueryCount
 
-sys.path.append(os.path.abspath('%s../../' % sys.path[0]))
+
 
 def output():
     suite = unittest.TestSuite()
