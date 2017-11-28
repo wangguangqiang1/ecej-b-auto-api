@@ -9,6 +9,7 @@ from CaseForUserAPP.TestLoginLoginIndex import TestLoginLoginIndex
 from CaseForUserAPP.TestAddAddress1 import TestAddAddress1
 from CaseForUserAPP.TestOrderQueryCount import TestOrderQueryCount
 
+sys.path.append(os.path.abspath('%s../../' % sys.path[0]))
 
 def output():
     suite = unittest.TestSuite()

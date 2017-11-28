@@ -12,6 +12,7 @@ import os
 from PublicModule.PublicCaseData import *
 from PublicModule.CreateDataScript import *
 
+sys.path.append(os.path.abspath('%s../../' % sys.path[0]))
 
 class TestOrderQueryCount(unittest.TestCase):  #测试我的接口
 

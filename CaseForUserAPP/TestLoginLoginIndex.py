@@ -11,6 +11,7 @@ import os
 from PublicModule.PublicCaseData import *
 from PublicModule.CreateDataScript import postRequest
 
+sys.path.append(os.path.abspath('%s../../' % sys.path[0]))
 
 class TestLoginLoginIndex(unittest.TestCase):  #测试“登陆接口”接口
 
