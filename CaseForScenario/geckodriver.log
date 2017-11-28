@@ -1,0 +1,106 @@
+1511439046650	geckodriver	INFO	geckodriver 0.18.0
+1511439046656	geckodriver	INFO	Listening on 127.0.0.1:35305
+1511439048764	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe with args ["-marionette"]
+1511439050911	Marionette	INFO	Enabled via --marionette
+[Child 260, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1511439052655	Marionette	INFO	Listening on port 35311
+1511439052947	Marionette	WARN	TLS certificate errors will be ignored for this session
+1511439053006	Marionette	DEBUG	Register listener.js for window 4294967297
+1511439053024	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1511439053169	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1511439053170	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1511439055193	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://stbusplatform.ecej.com/site/login"
+1511439056872	Marionette	DEBUG	Received DOM event "pageshow" for "https://stbusplatform.ecej.com/site/login"
+1511439058701	Marionette	DEBUG	Received DOM event "beforeunload" for "https://stbusplatform.ecej.com/site/login"
+1511439058722	Marionette	DEBUG	Received DOM event "pagehide" for "https://stbusplatform.ecej.com/site/login"
+1511439058722	Marionette	DEBUG	Received DOM event "unload" for "https://stbusplatform.ecej.com/site/login"
+1511439058872	Marionette	DEBUG	Received DOM event "pageshow" for "https://stbusplatform.ecej.com/main/index"
+1511439058935	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://stbusplatform.ecej.com/main/index"
+1511439058936	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "4294967302"
+1511439059469	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://stbusplatform.ecej.com/order/manage"
+1511439059469	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "4294967304"
+1511439059477	Marionette	DEBUG	Received DOM event "pageshow" for "https://stbusplatform.ecej.com/order/manage"
+1511439059611	Marionette	DEBUG	Received DOM event "beforeunload" for "https://stbusplatform.ecej.com/order/manage"
+1511439059717	Marionette	DEBUG	Received DOM event "pagehide" for "https://stbusplatform.ecej.com/order/manage"
+1511439059718	Marionette	DEBUG	Received DOM event "unload" for "https://stbusplatform.ecej.com/order/manage"
+1511439060431	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://stbusplatform.ecej.com/placeOrder/placeOrderPage?gotoP=wyxd"
+1511439060433	Marionette	DEBUG	Received DOM event "pageshow" for "https://stbusplatform.ecej.com/placeOrder/placeOrderPage?gotoP=wyxd"
+1511439060777	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1511439061027	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1511439061363	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1511439066799	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1511439069012	Marionette	DEBUG	Received DOM event "beforeunload" for "https://stbusplatform.ecej.com/placeOrder/placeOrderPage?gotoP=wyxd"
+1511439069043	Marionette	DEBUG	Received DOM event "pagehide" for "https://stbusplatform.ecej.com/placeOrder/placeOrderPage?gotoP=wyxd"
+1511439069044	Marionette	DEBUG	Received DOM event "unload" for "https://stbusplatform.ecej.com/placeOrder/placeOrderPage?gotoP=wyxd"
+1511439069507	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://stbusplatform.ecej.com/placeOrder/orderPage"
+1511439069510	Marionette	DEBUG	Received DOM event "pageshow" for "https://stbusplatform.ecej.com/placeOrder/orderPage"
+1511439072796	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1511439073082	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1511439073324	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1511439073590	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1511439073825	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1511439076095	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+[Child 11600, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 11600, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 13644, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 13644, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[GPU 3584, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+in.cc, line 346
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+form.ecej.com/placeOrder/orderPage"
+1511424939333	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1511424939620	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1511424939911	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1511424940190	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1511424940426	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1511424942714	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+[Parent 12716] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 12716] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+Unable to read VR Path Registry from C:\Users\admin\AppData\Local\openvr\openvrpaths.vrpath
+[Child 1784] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 1784] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+Unable to read VR Path Registry from C:\Users\admin\AppData\Local\openvr\openvrpaths.vrpath
+[Child 11168] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 11168] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1511234030680	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "4294967297"
+[Parent 15300] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+Unable to read VR Path Registry from C:\Users\admin\AppData\Local\openvr\openvrpaths.vrpath
+[Child 4436] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1511234033625	geckodriver::marionette	ERROR	Failed to kill browser process

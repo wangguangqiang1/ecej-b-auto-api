@@ -1,0 +1,1297 @@
+
+
+ 
+
+
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<meta name="theme-color" content="#3e454c">
+	
+	<title>ecej运营管理平台</title>
+	
+	
+
+<!-- Font awesome -->
+<link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.min.css" type="text/css">
+
+<!-- Sandstone Bootstrap CSS -->
+<link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+
+<!-- bootstrap-table css-->
+<link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-table.css" type="text/css">
+
+<!-- Admin Stye -->
+<link rel="stylesheet" href="/assets/bootstrap/css/style.css" type="text/css">
+
+<!-- Ã¨Â¦ÂÃ§ÂÂÃ§ÂÂ¨Ã§ÂÂcss -->
+<link rel="stylesheet" href="/assets/bootstrap/css/coverstyle.css" type="text/css">
+<link rel="stylesheet" href="/assets/bootstrap/css/sche-table.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/jq.ui.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/common.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/jq.validation.css" type="text/css">
+<link rel="stylesheet" media="all" href="/assets/css/awesome-bootstrap-checkbox.css" type="text/css">
+
+<link rel="stylesheet" href="/assets/css/parsley.css" type="text/css">
+
+<!-- datapicker -->
+<link rel="stylesheet" href="/assets/daterangepicker/daterangepicker.css" type="text/css">
+<link rel="stylesheet" href="/assets/bootstrap/css/fileinput.min.css">
+
+
+<!-- bootstrap-select css -->
+<link rel="stylesheet" href="/assets/bootstrap-select/css/bootstrap-select.min.css">
+<!-- baidumap -->
+<link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.css" />
+
+<!-- zTree_v3-master css -->
+ <link rel="stylesheet" href="/assets/zTree_v3-master/css/zTreeStyle/zTreeStyle.css" type="text/css">
+ 
+ 
+ <!-- apmall use -->
+ <link rel="stylesheet" href="/assets/css/self.css">
+
+ 
+	<!--[if lt IE 9]>
+	    <script src="/assets/ie/html5shiv.js"></script>
+	    <script src="/assets/ie/respond.min.js"></script>
+	    <script src="/assets/ie/excanvas.js"></script>
+	<![endif]-->
+	<style type="text/css">
+		.errorMessage {
+			font-size:18px;
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	
+
+ 
+
+
+
+
+<script type="text/javascript">
+function modifyPasswordFun(){
+	$('#modifyPasswordDialog').modal('show');
+	$('#modifyPasswordForm')[0].reset();
+}
+
+/**
+ * 新增/修改保存数据
+ */
+function modifyAdmin() {
+
+		$('#modifyPasswordForm').bindVerify();
+
+		var id =$('#loginIdTOP').val();
+
+		var oldPassword = $('#oldPasswordTOP').val() == null ? "" : $.trim($(
+				'#oldPasswordTOP').val());
+		var password = $('#newPasswordTOP').val() == null ? "" : $.trim($(
+				'#newPasswordTOP').val());
+		var password2 = $('#newPassword2TOP').val() == null ? "" : $.trim($(
+				'#newPassword2TOP').val());
+		if (password != password2) {
+			bootbox.alert('两次输入的密码不一致，请重新输入');
+			return false;
+		}
+
+		if ($('#modifyPasswordForm').validates()) {
+			$.ajax({
+				url : "/userManage/resetPassword?m=Math.random()",
+				data : {
+					id : id,
+					name : name,
+					password : password,
+					oldPassword:oldPassword
+				},
+				type : "post",
+				dataType : "JSON",
+				async : false,
+				success : function(data) {
+					if (data.success) {
+						$('#modifyPasswordDialog').modal('hide');
+
+						bootbox.alert({
+							 message: '修改成功',
+					            callback: function() {
+					            	window.location.href="/login/toLoginPage";
+					            }
+						});
+
+
+					} else {
+						if (data.flag==1) {
+							bootbox.alert("重置失败，原密码输入错误");
+							return false;
+						}
+						bootbox.alert("重置失败，请重新操作");
+					}
+				}
+			});
+	}
+}
+
+</script>
+	<div class="brand clearfix">
+		<a id="ecej_logo" href="javascript:void(0)" class="logo"><img src="/assets/bootstrap/img/logo.jpg" class="img-responsive" alt=""></a>
+		<span class="menu-btn"><i class="fa fa-bars"></i></span>
+		<ul class="ts-profile-nav">
+			<li class="ts-account">
+				<a href="#"><img src="/assets/bootstrap/img/ts-avatar.jpg" class="ts-avatar hidden-side" alt="">管理员<i class="fa fa-angle-down hidden-side"></i></a>
+				<ul>
+					<li><a href="#" onclick="modifyPasswordFun()">修改密码</a></li>
+					<li><a id="logOutId" href="/login/toLoginPage">登出</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+
+<div class="modal fade" id="modifyPasswordDialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">修改密码</h4>
+			</div>
+			<div class="modal-body">
+				<form id="modifyPasswordForm" action="" class="form-horizontal">
+					<input type="hidden" id="loginIdTOP" value="1">
+					<div class="form-group">
+						<label for="cityIdDetailTOP" class="col-sm-3 control-label sm-label">用户名</label>
+						<div class="col-sm-3" style="padding-top: 6px;">
+					   		 <span id="cityIdDetailTOP" name=""></span>admin
+				   	 	</div>
+					</div>
+					<div class="form-group">
+						<label for="oldPasswordTOP" class="col-sm-3 control-label sm-label">原密码</label>
+						<div class="col-sm-9" style="padding-top: 6px;">
+							<input type="text" class="form-control  input-sm" maxlength="20"
+								id="oldPasswordTOP" data-required="true">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="newPasswordTOP" class="col-sm-3 control-label sm-label">新密码</label>
+						<div class="col-sm-9" style="padding-top: 6px;">
+							<input type="text" class="form-control  input-sm" maxlength="20"
+								id="newPasswordTOP" data-required="true">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="newPassword2TOP" class="col-sm-3 control-label sm-label">确认密码</label>
+						<div class="col-sm-9" style="padding-top: 6px;">
+							<input type="text" class="form-control  input-sm" maxlength="20"
+								id="newPassword2TOP" data-required="true">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer" style="text-align: center">
+				<button class="btn btn-success" onclick="modifyAdmin()">保存</button>
+				&nbsp;&nbsp;
+				<button class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+	
+	<div class="ts-main-content">
+	
+
+ 
+
+
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<meta name="theme-color" content="#3e454c">
+	<title></title>
+</head>
+<body>
+	<nav class="ts-sidebar">
+		<ul class="ts-sidebar-menu">
+			<li class="open" id="home_page_menu"><a class="menuItem" href="javascript:void(0)" ><i class="fa fa-dashboard"></i> 首页</a></li>
+			<!-- 1 市场运营 -->
+			
+			<li><a href="javascript:void(0);"><i class="fa fa-desktop"></i>市场运营管理</a>
+				<ul>
+					
+					
+						<li><a class="menuItem" href="javascript:void(0)" url="/fastEntryController/fastEntryManagerPage">快速入口管理</a></li>
+				    
+					
+					<li><a class="menuItem" href="javascript:void(0)" url="/bizzone/toBizZoneListPage">热门商圈管理</a></li>
+					
+					
+						<li><a class="menuItem" href="javascript:void(0)" url="/activityController/activityManagerPage">活动管理</a></li>
+				    
+					
+						<li><a class="menuItem" href="javascript:void(0)" url="/specialLabelController/specialLabelManagerPage">特殊标签设置</a></li>
+				    
+				    
+						<li><a class="menuItem" href="javascript:void(0)" url="/featureFirstController/featureFirstManagerPage">推荐位管理</a></li>
+				    
+					
+					
+						<li><a class="menuItem" href="javascript:void(0)" url="/category/toSysRecommendClassServicePage">推荐分类管理</a></li>
+					
+					
+						<li><a class="menuItem" href="javascript:void(0)" url="/sysRecommendSeller/toSysRecommendSellerPage">推荐商家</a></li>
+						
+					
+						<li><a class="menuItem" href="javascript:void(0)" url="/businessOperate/toMessagePushPage">消息推送</a></li>
+					
+					
+						<li><a href="javascript:void(0);" >极致服务</a>
+							<ul>
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/videoManege/toVideoManagePage">视频管理</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/classificationSettings/toClassificationSettingPage">分类设置</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/ultimateStar/toUltimateStarPage">员工启动页管理</a></li>
+								
+							</ul>
+						</li>
+					
+					
+						<li><a href="javascript:void(0);" >APP首页管理</a>
+							<ul>
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/platformProfessionEntrance/platformProfessionEntranceManagerPage">平台业务入口设置</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/cityPlatformProfessionEntrance/cityPlatformProfessionEntranceManagerPage">城市业务入口设置</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/platformDeviceShow/toPlatformDeviceShow">平台设备图片设置</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/cityTopSellProductColumn/toManagerPage">城市爆品设置</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/cityRecommend/toCityRecommend">城市推荐设置</a></li>
+								
+							</ul>
+						</li>
+					
+					
+						<li><a class="menuItem" href="javascript:void(0)" url="/deviceOrderCount/toDeviceOrderCount" >订单初始单量设置</a></li>
+				    
+					
+						<li><a class="menuItem"  href="javascript:void(0)" url="/evaluate/excellentEvaluate">优质评价管理</a></li>
+					
+					
+					<li><a href="javascript:void(0);" >H5下单</a>
+						<ul>
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/hFiveActivityPhoto/toHFiveActivityPhotoManagePage">活动图片管理</a></li>
+							
+						</ul>
+					</li>
+					
+				</ul>
+			</li>
+			
+			<!-- 5商务运营管理end  -->
+			
+			
+			
+			<!-- 活动设置start -->
+			
+			<li><a href="javascript:void(0);"><i class="fa fa-pie-chart"></i>活动设置</a>
+				<ul>
+					
+						<li><a class="menuItem"  href="javascript:void(0)" url="/activity/activityManager">上门服务活动设置</a></li>
+					
+					
+						<li><a class="menuItem"  href="javascript:void(0)" url="/activityPush/toActivityPush">地推活动管理</a></li>
+					
+				</ul>
+			</li>
+			
+			<!-- 活动设置end -->
+			<!-- 2 人力资源管理start  -->
+			
+			<li><a href="javascript:void(0);"><i class="fa fa-desktop"></i>人力资源管理</a>
+				<ul>
+				
+					<!-- 人员管理 -->
+					
+					<li><a href="javascript:void(0);" >人员管理</a>
+						<ul>
+							
+								<li><a class="menuItem" href="javascript:void(0);" url="/welcome/employeeManage">人员基础信息</a></li>
+							
+							
+						    <li><a class="menuItem" href="javascript:void(0)" url="/userManage/toEmpPage">多能工账户管理</a></li>
+						   
+						   
+						   	<li><a class="menuItem" href="javascript:void(0);" url="/welcome/personnelMobilizationManage">公司人员调动</a></li>
+						   	
+							 
+								<li><a class="menuItem" href="javascript:void(0);" url="/welcome/cityEmployeeManage">服务公司人员管理</a></li>
+							
+							 	
+								<li><a class="menuItem" href="javascript:void(0);" url="/welcome/stationEmployeeManage">服务站人员管理</a></li>
+							
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/empScheduleRecordManage/stationGroupPage">小组管理</a></li>
+							
+						</ul>
+					</li>
+					
+					<!-- 特种作业人员管理 -->
+					
+					<li><a href="javascript:void(0);" >人员特种作业管理</a>
+						<ul>
+							
+								<li><a class="menuItem" href="javascript:void(0);" url="/specialEmp/toSpecialEmpWorkManage">特种作业人员管理</a></li>
+							
+							
+						   		<li><a class="menuItem" href="javascript:void(0)" url="/specialCertificate/toSpecialCertificateManage">特种作业管理</a></li>
+						    
+						</ul>
+					</li>
+					
+					
+					<!-- 服务技能准入 -->
+					
+					<li><a href="javascript:void(0);" >服务技能准入</a>
+						<ul>
+							
+							<li><a class="menuItem" href="javascript:void(0)" url="/serviceSkill/serviceSkillCertifications">服务技能认证管理</a></li>
+							
+							
+							
+							<li><a class="menuItem" href="javascript:void(0)" url="/serviceSkill/citySkillDistri">城市技能分布</a></li>
+							
+
+							
+							
+							
+							<li><a class="menuItem" href="javascript:void(0)" url="/serviceSkill/serviceSkillReference">服务技能基准量查询(月度)</a></li>
+							
+							
+							<li><a class="menuItem" href="javascript:void(0)" url="/serviceSkill/serviceSkillReferenceTotal">服务技能基准量查询(累计)</a></li>
+							
+						</ul>
+					</li>
+					
+					
+					<!-- 服务技能设置 -->
+					
+					<li><a href="javascript:void(0);" >服务技能设置</a>
+						<ul>
+							
+							<li><a class="menuItem" href="javascript:void(0)" url="/welcome/labelFound">服务技能标签创建</a></li>
+							
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/svcClassLabelRelation/toClassLabelRelationPage">服务品类技能标签设置</a></li>
+							
+							
+						</ul>
+					</li>
+					
+					
+					<!-- 薪酬核算 -->
+					
+					<li><a href="javascript:void(0);" >薪酬核算</a>
+						<ul>
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/monthPayMent/toMonthPayMentCountPage">月度薪酬</a></li>
+								
+								
+								<li><a class="menuItem" href="javascript:void(0)" url="/salary/serviceSalary">计提和评价收入统计</a></li>
+								
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/salary/pieceIncomeStatisticsPage">服务计提明细统计</a></li>
+							
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/salary/partsIncomeStatisticsPage">配件计提明细统计</a></li>
+							
+							
+						</ul>
+					</li>
+					
+					
+					<!-- 薪酬设置 -->
+					
+					<li><a href="javascript:void(0);" >薪酬设置</a>
+						<ul>
+									
+										<li><a class="menuItem" href="javascript:void(0)"
+											url="/baseSalary/toBaseSalaryList">基础工资设置</a></li>
+									
+									
+										<li><a class="menuItem" href="javascript:void(0)"
+											url="/salary/baseSkillSetting">技能工资方案设置</a></li>
+									
+
+									
+										<li><a class="menuItem" href="javascript:void(0)"
+											url="/salary/serviceAccrualSetting">服务计提设置</a></li>
+									
+									
+										<li><a class="menuItem" href="javascript:void(0)"
+											url="/materialAccrual/toMaterialAccrualList">配件计提设置</a></li>
+									
+									
+										<li><a class="menuItem" href="javascript:void(0)"
+											url="/salary/pingjiaxishuSetting">评价系数设置</a></li>
+									
+
+								</ul></li>
+					
+				</ul>
+			</li>
+			
+			
+			
+			
+			<!-- 3物料  -->
+			
+			<li><a href="javascript:void(0);"><i class="fa fa-desktop"></i>物料管理</a>
+			<ul>
+				
+				<li><a href="javascript:void(0);">物料创建与维护</a>
+					<ul>
+						
+							<li><a class="menuItem" href="javascript:void(0)" url="/materialInfo/toMaterialInfoListPage">录入物料</a></li>
+						
+						 
+							
+							<li><a class="menuItem" href="javascript:void(0)" url="/svcSpuGoods/toSpuGoodsPage">SPU商品管理</a></li>
+						
+						
+							<li><a class="menuItem" href="javascript:void(0)" url="/materialBrand/toMaterialBrandPage">品牌属性创建</a></li>
+						
+						
+							<li><a class="menuItem" href="javascript:void(0)" url="/material/pecifications/listPage">购买属性创建</a></li>
+						
+						
+							<li><a class="menuItem" href="javascript:void(0)" url="/thirdPartyMaterial/thirdPartyMaterialPage">第三方系统物料号设置</a></li>
+						
+					</ul>
+				</li>
+				
+				
+					<li><a class="menuItem" href="javascript:void(0)" url="/cityMaterialPrice/toCityMaterialPrice">城市物料定价</a></li>
+				
+				
+				<li><a href="javascript:void(0);">物料采购与移库</a>
+					<ul>
+						
+							<li><a class="menuItem" href="javascript:void(0)" url="/materialPurchase/toMaterialPurchasePlanListPage">物料采购收货</a></li>
+						
+						
+							<li><a class="menuItem" href="javascript:void(0)" url="/materialAllocateInventory/toMaterialAllocateInventoryPage">一级库调回物料</a></li>
+						
+						
+							<li><a class="menuItem" href="javascript:void(0)" url="/materialStationApply/toMaterialStationApplyListPage">服务站物料申领及处理</a></li>
+							
+						
+							<li><a class="menuItem" href="javascript:void(0)" url="/materialApplySecondment/tomaterialEmpApplyPage">多能工申领处理</a></li>
+						
+						 
+							<li><a class="menuItem" href="javascript:void(0)" url="/materialReclaim/toMaterialReclaimPage">员工物料回收</a></li>
+						
+						 
+							<li><a class="menuItem" href="javascript:void(0)" url="/materialApplySecondment/toEmpMaterialSecondmentPage">员工物料借调查询</a></li>
+						
+						 
+							<li><a class="menuItem" href="javascript:void(0)" url="/materialMoveRecord/tomaterialMoveRecordListPage">库区移库管理</a></li>
+						
+					</ul>
+				</li>
+				
+					
+
+
+
+				
+
+					<li><a class="menuItem" href="javascript:void(0)" url="/materialStockInventory/toMaterialStockInventoryPage">物料即时库存查询</a></li>
+					<li><a class="menuItem" href="javascript:void(0)" url="/materialStockInventoryHis/toMaterialStockInventoryHisPage">物料历史库存查询</a></li>
+				
+
+
+
+
+
+
+				
+				 
+					<li><a class="menuItem" href="javascript:void(0)" url="/goodsOccupyCtl/goodsOccupyDeliverPage">库存占用与发货管理</a></li>
+				
+				 
+					<li><a class="menuItem" href="javascript:void(0)" url="http://stadm.ecej.com:8081/opmall/omtThirdMaterial/toThirdMaterialListPage">三方商品取货与发货</a></li>
+				
+				 
+				<li><a class="menuItem" href="javascript:void(0)" url="/svcGoodsReturnExchange/toGoodsReturnExchangePage">退换货区在途物料查询</a></li>
+				
+				 
+				<li><a class="menuItem" href="javascript:void(0)" url="/svcGoodsReturnExchange/toGoodsReturnAreaPage">退换货区管理</a></li>
+				
+				 
+				<li><a class="menuItem" href="javascript:void(0)" url="/materialConsumptionScrap/toMaterialConsumptionScrapListPage">非生产消耗及报废</a></li>
+				
+			</ul>
+			</li>
+			
+			
+			<!-- 供应商管理  -->
+			
+			<li><a href="javascript:void(0);"><i class="fa fa-desktop"></i>供应商管理</a>
+			<ul>
+				
+					<li><a class="menuItem" href="javascript:void(0)" url="/supplierMaterialRelation/toManagerPage">供货名录管理</a></li>
+				
+				
+					<li><a class="menuItem" href="javascript:void(0)" url="/empPurchaseRecord/toEmpPurchasePage">员工门店采购记录</a></li>
+				
+			</ul>
+			</li>
+			
+			<!-- 4 服务站任务管理 -->
+			
+			<li><a href="javascript:void(0);"><i class="fa fa-desktop"></i>服务站任务管理</a>
+				<ul>
+					
+					<li><a href="javascript:void(0);">排班管理</a>
+						<ul>
+							
+							<li><a class="menuItem" href="javascript:void(0)" url="/classManager/empScheduleRecordPage">排班管理</a></li>
+							
+							
+							<li><a class="menuItem" href="javascript:void(0)" url="/empScheduleRecordManage/scheduleRecordPage">档期管理</a></li>
+							
+							
+							<li><a class="menuItem" href="javascript:void(0)" url="/empScheduleRecordManage/scheduleRecordPageSelect">员工任务情况查询</a></li>
+							
+							
+							<li><a class="menuItem" href="javascript:void(0)" url="/classManager/classManagerPage">班次设置</a></li>
+							
+						</ul>
+					 </li>
+					 
+					  
+						<li><a class="menuItem" href="javascript:void(0)" url="/workOrderDispatch2/pagecommon">常规任务管理</a></li>
+					 
+					 	
+					   	
+						<li><a class="menuItem"  href="javascript:void(0)" url="/routineTasks/totaskCheck">任务核查</a></li>
+					 
+					 
+					 	<li>
+							<a href="javascript:void(0)">专项任务安检</a>
+							<ul>
+								
+								<li><a class="menuItem" href="javascript:void(0)" url="/specialTaskPage/intoSpecialTaskManage">专项任务管理</a></li>
+								
+								
+								<li><a class="menuItem" href="javascript:void(0)" url="/specialTaskPage/intoSpecialTaskDetail">专项任务明细</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+			</li>
+			
+			
+			<!--服务监督 -->
+			
+			<li><a href="javascript:void(0);"><i class="fa fa-table"></i>服务监督</a>
+				<ul>
+				   
+					 <li><a class="menuItem"  href="javascript:void(0)" url="/evaluate/orderEvaluate">评价管理</a></li>
+				  
+				</ul>
+			</li>
+			
+			
+			
+			<!--5 客户管理 start -->
+			
+			<li><a href="javascript:void(0);"><i class="fa fa-table"></i>客户管理</a>
+				<ul>
+				   
+					<li><a class="menuItem" href="javascript:void(0)" url="/client/toClientManage">客户管理</a></li>
+					
+					
+					<li><a class="menuItem"  href="javascript:void(0)" url="/addressPage/toAddressPage">地址管理</a></li>
+					
+				</ul>
+			</li>
+			
+
+			
+			<!--6 员工交账管理 start -->
+			
+			<li><a href="javascript:void(0);"><i class="fa fa-table"></i>员工交账管理</a>
+				<ul>
+	 				
+						<li><a class="menuItem" href="javascript:void(0)" url="/employeePay/toEmployeePayConfigPage" >员工交账设置</a></li>
+					
+					
+						<li><a class="menuItem" href="javascript:void(0)" url="/employeePay/toEmployeePayWarnPage" >员工交账预警</a></li>
+					
+					
+						<li><a class="menuItem" href="javascript:void(0)" url="/employeePay/toEmployeePayDetailPage" >员工交账明细</a></li>
+					
+				</ul>
+			</li>
+			
+			
+			<!-- 7财务结算管理start -->
+			
+			
+			<li><a href="javascript:void(0);"><i class="fa fa-desktop"></i>财务结算管理</a>
+				<ul>
+					<!--  财务订单管理  start-->
+					
+						<li><a href="javascript:void(0);"></i>订单管理</a>
+							<ul>
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/lifeChargeCtl/toLifeCharge">生活缴费订单</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/visitingServiceCtl/toVisitingService">上门服务订单</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/merchantServiceCtl/toMerchantService">商家服务订单</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/merchantServiceDrawbackCtl/toMerchantServiceDrawback">商家服务退款订单</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/businessOldsystemOrder/toPayOrder">商家服务订单（旧渠道）</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/businessOldsystemOrderRefund/toRefundOrder">商家服务退款订单（旧渠道）</a></li>
+								
+							</ul>
+						</li>
+					
+					<!--  财务订单管理  end-->
+					<!--  数据校对  start-->
+					
+						<li><a href="javascript:void(0);">数据校对</a>
+							<ul>
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/performPayDataProofCtl/toPerformPayDataProof">平台支付数据校对</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/performPayDiffrenceCtl/toPerformPayDiffrence">支付差异订单</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/performDrawbackDataProofCtl/toPerformDrawbackDataProof">平台退款数据校对</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/performDrawbackDiffrenceCtl/toPerformDrawbackDiffrence">退款差异订单</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/manualReconciliationCtl/toManualReconcPage">手动对账</a></li>
+								
+							</ul>
+						</li>
+					
+					<!--  数据校对  end-->
+					
+						<li><a href="javascript:void(0);">财务对账</a>
+							<ul>
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/financeRecon/toPlatformFinanceReconciliatePage">平台财务对账</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/serviceComp/toServiceCompanyReconDetailPage" >服务公司对账明细</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/payChannelRecon/toPayChannelReconDetailPage" >支付渠道对账明细</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/unilateralAccount/toUnilateralAccountListPage" >单边账列表</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/payChannelRefundRecon/toPayChannelRefundReconDetailPage" >支付渠道退款对账</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/refundExcep/toRefundExceptionDetailPage" >退款异常明细</a></li>
+								
+							</ul>
+						</li>
+					
+					
+					
+					
+							<li><a href="javascript:void(0);">应收汇总</a>
+								<ul>
+									
+										<li><a class="menuItem" href="javascript:void(0)" url="/receiveSum/toPlatformReceiveSumPage" >平台应收汇总</a></li>
+									
+									
+										<li><a class="menuItem" href="javascript:void(0)" url="/receiveSum/toCompanyReceiveDetailPage" >公司应收明细</a></li>
+									
+								</ul>
+							</li>
+					
+				
+					
+						<li><a href="javascript:void(0);">财务清算</a>
+							<ul>
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/platformFinanceSet/toPlatformFinanceSettlePage" >平台财务清算</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/platformFinanceSet/toCompanySettleListPage" >公司清算列表</a></li>
+								
+							</ul>
+						</li>
+					
+					
+					
+							<li><a class="menuItem" href="javascript:void(0);" url="/payCheck/toPlatformPayCheckPage">财务结算审核</a></li>
+					
+				</ul>
+			</li>
+			
+
+			
+			
+			<!-- 8公司结算管理start  -->
+			
+				<li><a href="javascript:void(0);"><i class="fa fa-table"></i>公司结算管理</a>
+					<ul>
+						
+							<li><a href="javascript:void(0);" >服务公司提现</a>
+								<ul>
+									
+										<li><a class="menuItem" href="javascript:void(0)" url="/drawCash/toCompanyDrawCashPage" >服务公司提现</a></li>
+									
+									  
+										<li><a class="menuItem" href="javascript:void(0)" url="/drawCash/toCompanyDrawCashHistoryPage" >服务公司提现记录</a></li>
+									 
+								</ul>
+							</li>
+						
+						
+							<li><a href="javascript:void(0);">服务公司结算</a>
+								<ul>
+									
+										<li><a class="menuItem" href="javascript:void(0)" url="/companySettle/toCompanySettlePage" >结算单列表</a></li>
+									
+									
+										<li><a class="menuItem" href="javascript:void(0)" url="/comOrderDetail/toPayOrderDetailPage" >缴费订单明细</a></li>
+									
+									
+										<li><a class="menuItem" href="javascript:void(0)" url="/comOrderDetail/toWorkOrderDetailPage" >上门服务订单明细</a></li>
+									
+								</ul>
+							</li>
+						
+					</ul>
+				</li>
+			
+			
+			
+			<li><a href="javascript:void(0);"><i class="fa fa-desktop"></i>第三方平台管理</a>
+					<ul>
+						<li><a class="menuItem" href="javascript:void(0)" url="/v1/platform/toPlatformPage" >平台管理</a></li>
+						<li><a class="menuItem" href="javascript:void(0)" url="/v1/cityManageMent/toCityManageMentListPage">城市管理</a></li>
+						<li><a class="menuItem" href="javascript:void(0)" url="/v1/businessManagement/toBusinessManagementPage" >业务管理</a></li>
+						<li><a class="menuItem" href="javascript:void(0)" url="/v1/merchant/merchantManagePage" >商户管理</a></li>
+						<li><a href="javascript:void(0);"><i class="fa fa-desktop"></i>项目管理</a>
+							<ul>
+								<li><a class="menuItem" href="javascript:void(0)" url="/v1/templateManagement/toTemplateManagementPage" >模板管理</a></li>
+								<li><a class="menuItem" href="javascript:void(0)" url="/v1/payItem/queryPayItemList" >项目管理</a></li>
+							</ul>
+						</li>
+						<li><a class="menuItem" href="javascript:void(0)" url="/v1/orderManagement/toOrderManagementPage" >订单管理</a></li>
+						<li><a class="menuItem" href="javascript:void(0)" url="/v1/dataDictionary/toDataDictionaryPage" >字典管理</a></li>
+					</ul>
+			</li>
+			
+			<li><a href="javascript:void(0);"><i class="fa fa-desktop"></i>异常订单管理</a>
+					<ul>
+						<li><a class="menuItem" href="javascript:void(0)" url="/v1/abnormalOrder/toAbnormalOrderPage" >异常订单管理</a></li>
+					</ul>
+			</li>
+			
+
+			<!-- 9统计查询start -->
+			
+
+			<li><a href="javascript:void(0);"><i class="fa fa-pie-chart"></i>统计查询</a>
+				<ul>
+				   
+					<li><a class="menuItem"  href="javascript:void(0)" url="/routineTasks/toorderManager">上门服务订单管理</a></li>
+					
+					
+					
+						<li><a class="menuItem"  href="javascript:void(0)" url="/specialTasksStatisticsQueryController/toHiddenDangerQuery">隐患信息查询</a></li>
+					
+					
+						<li><a class="menuItem"  href="javascript:void(0)" url="/specialTasksStatisticsQueryController/toCustomerQuery">客户统计</a></li>
+					
+					
+					<li><a class="menuItem"  href="javascript:void(0)" url="/orderOperHis/tofind">上门服务订单操作管理</a></li>
+					
+					
+					<li><a class="menuItem" href="javascript:void(0)" url="/payOrderQuery/toPayOrderQueryPage">缴费订单查询</a></li>
+					
+					
+					<li><a class="menuItem"  href="javascript:void(0)" url="/payphonefareflow/toPayPhoneFareFlowListPage">手机充值订单查询</a></li>
+					
+					
+					<li><a class="menuItem" href="javascript:void(0)" url="/v1/offline/toBusinessHallPayQueryPage">营业厅收单查询</a></li>
+					
+					
+					<li><a class="menuItem" href="javascript:void(0)" url="/materialOutInStorageRecord/toMaterialOutInStorageRecordPage">物料出入库统计</a></li>
+					
+					
+						<li><a class="menuItem" href="javascript:void(0)" url="/materialUsed/toManagerPage">物料消耗统计</a></li>
+					
+					
+						<li><a class="menuItem" href="javascript:void(0)" url="/empWorkConditionQuery/toEmpWorkConditionPage">员工个人情况查询</a></li>
+					
+					
+						<li><a class="menuItem" href="javascript:void(0)" url="/empClassQuery/toEmpClassQueryPage">员工班次查询</a></li>
+					
+					
+						<li><a class="menuItem" href="javascript:void(0)" url="/serviceItemQuery/toManagerPage">上门服务服务项目统计</a></li>
+					
+					
+						<li><a class="menuItem" href="javascript:void(0)" url="/companyServiceClass/toManagerPage?state=0">公司承接业务详情</a></li>
+					
+					
+					<li><a class="menuItem" href="javascript:void(0)" url="/hzf/tohzf">合作方订单统计</a></li>
+					
+					
+					<li><a class="menuItem" href="javascript:void(0)" url="/orderInterFace/toPage">订单离线操作统计</a></li>
+					
+				</ul>
+			</li>
+			
+			<!-- 10业务配置管理start -->
+			
+				<li><a href="javascript:void(0);"><i class="fa fa-edit"></i>业务配置管理 </a>			
+				<ul>
+					
+	                <li><a class="menuItem" href="javascript:void(0)" url="/serviceareaset/toServiceAreaSet" >服务区域设置</a></li>
+					
+					
+					
+					<li><a href="javascript:void(0);"></i>服务站管理</a>
+						<ul>
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/station/stationInfo" >服务站设置</a></li>
+							
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/svcStorageLocation/toSvcStorageLocationPage" >服务站库位设置</a></li>
+							
+						</ul>
+					</li>
+					
+					
+						<li><a class="menuItem" href="javascript:void(0)" url="/svcMaintenanceChannelSupplier/toMaintenanceChannelSupplierPage" >合作方设置</a></li>
+					
+					
+						<li><a class="menuItem" href="javascript:void(0)" url="/svcMaterialPushPlan/toSvcMaterialPushPlanPage" >物料数据传输方案设置</a></li>
+					
+					
+					
+						<li><a href="javascript:void(0);">派工设置</a>
+							<ul>
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/dispatchParaSetting/tofindPage">派工模式设置</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/dispatchtime/toWorkTimeSettings">派工时间设置</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/dispatch/toParaferenceSetting">派工参数设置</a></li>
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/dispatchParaSetting/tofindPage_auto">自主接单设置</a></li>
+								
+								
+								<li><a class="menuItem" href="javascript:void(0)" url="/excludeRuleDefine/svcExcludeRuleDefinePage">剔除规则设置</a></li>
+								
+								 
+								<li><a class="menuItem" href="javascript:void(0)" url="/workload/toWorkLoad">工作负荷设置</a></li>
+									
+								
+								<li><a class="menuItem" href="javascript:void(0)" url="/dispatchPriorityRuleFormul/dispatchPriorityRuleFormulaPage">优选规则设置</a></li>
+								
+								
+								<li><a class="menuItem" href="javascript:void(0)" url="/dispatchPriorityRuleFormul/dispatchPriorityRuleFormulaCompanyPage">公司优选顺序设置</a></li>
+								
+								
+								<li><a class="menuItem" href="javascript:void(0)" url="/svcCompanySwitchSetting/toSvcCompanySwitchSettingPage">派工开关</a></li>
+								
+							</ul>
+						</li>
+					
+					
+					
+						<li><a href="javascript:void(0);">任务设置</a>
+							<ul>
+								
+								<li><a class="menuItem" href="javascript:void(0)" url="/sysCityChangeCountSettingController/toSysCityChangeCountSetting">变更次数设置</a></li>
+								
+								
+								<li><a class="menuItem" href="javascript:void(0)" url="/reminderCountSettingController/toReminderCountSetting">催单设置</a></li>
+								
+								
+								<li><a class="menuItem" href="javascript:void(0)" url="/specialTaskSettingController/toSpecialTaskSetting">专项任务参数设置</a></li>
+								
+								
+								
+								<li><a class="menuItem" href="javascript:void(0)" url="/warningsettings/toWarningSettingsListPage">预警设置</a></li>
+								 
+								
+								
+								<li><a class="menuItem" href="javascript:void(0)" url="/sysCheckWarningController/toSysCheckWarning">核查设置</a></li>
+								
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/useGasTypeSetting/toUseGasTypeSettingPage">用气量核查参数设置</a></li>
+								
+								
+								
+									<li><a class="menuItem" href="javascript:void(0)" url="/serviceClassParam/toServiceClassParamPage">服务品类参数设置</a></li>
+								
+									
+							</ul>
+						</li>
+					
+					
+				    
+						<li><a class="menuItem" href="javascript:void(0)" url="/companyManage/toCompanyManagePage" >公司管理</a></li>
+					
+					
+				    
+					
+					<li><a class="menuItem" href="javascript:void(0)" url="/svcStarLevelSettingController/toSvcStarLevelSetting" >评价配置</a></li>
+					
+					
+					
+					<li><a href="javascript:void(0);" >标签管理</a>
+						<ul>
+							
+							<li><a class="menuItem" href="javascript:void(0)" url="/svcActivityLabelController/toSvcActivityLabel">活动标签</a></li>
+							
+							
+							<li><a class="menuItem" href="javascript:void(0)" url="/svcEvaluateLabelController/toSvcEvaluateLabel">评价标签</a></li>
+							
+							
+							<li><a class="menuItem" href="javascript:void(0)" url="/clientLabel/getClentLabelList" >客户-房产标签设置</a></li>
+							
+						</ul>
+					</li>
+					
+					
+					
+						<li><a class="menuItem" href="javascript:void(0)" url="/svcSellerController/toSvcSeller" >销售商管理</a></li>
+					
+					
+					
+					
+					<li><a href="javascript:void(0);" >城市开通业务管理</a>
+						<ul>
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/v1/payOpeningSetting/toPayOpeningSettingPage" >缴费业务开通设置</a></li>
+			
+								
+												
+								<li><a class="menuItem" href="javascript:void(0)" url="/cityOpen/toManagerPage?state=2" >上门服务业务开通设置</a></li>
+								
+						</ul>
+					</li>
+					
+					
+					
+					<li><a href="javascript:void(0);">生活缴费配置</a>
+						<ul>						
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/lifePayBigClass/toManagerPage" >缴费大类管理</a></li>	
+							
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/lifePayClass/toManagerPage" >缴费品类管理</a></li>	
+							
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/cityLifePayClass/toManagerPage" >城市品类设置</a></li>
+							
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/cellularPhoneReplenishingController/cellularPhoneReplenishingPage" >手机充值配置</a></li>
+							
+							
+						</ul>
+					</li>
+										
+					
+				    <li><a href="javascript:void(0);" >上门服务平台配置</a>
+						<ul>
+										
+								<li><a class="menuItem" href="javascript:void(0)" url="/serviceBigClass/toManagerPage" >服务大类管理</a></li>
+							
+							
+						    
+								<li><a class="menuItem" href="javascript:void(0)" url="/platformDevice/toManagerPage" >设备管理</a></li>		
+							
+							
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/serviceClass/toManagerPage" >服务品类管理</a></li>	
+											
+	
+											
+								<li><a class="menuItem" href="javascript:void(0)" url="/serviceItem/toManagerPage" >服务项目管理</a></li>	
+														
+	
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/requireDescribe/toManagerPage" >服务需求描述管理</a></li>
+							
+							
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/sysHiddenDangerManagerController/toSysHiddenDangerManager" >隐患内容管理</a></li>
+							
+							
+							<li><a class="menuItem" href="javascript:void(0)" url="/checkItem/toPage" >检查项目管理</a></li>
+							
+							
+							<li><a class="menuItem" href="javascript:void(0)" url="/meterType/toMeterType" >表类型管理</a></li>
+							
+							
+							
+							<li><a class="menuItem" href="javascript:void(0)" url="/svcOrderChangeReasonController/toSvcOrderChangeReason" >取消改约原因管理</a></li>
+							
+							
+							<li><a class="menuItem" href="javascript:void(0)" url="/orderChannelManage/toManagerPage" >订单渠道信息管理</a></li>
+							
+							
+							<li><a class="menuItem" href="javascript:void(0)" url="/weixinManager/weixinPage" >推广渠道管理</a></li>
+							
+						</ul>
+					</li>
+					
+					
+					
+					<li><a href="javascript:void(0);">卡管系统配置</a>
+						<ul>
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/cardNo/toManagerPage">卡号配置</a></li>
+							
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/bleVersion/toManagerPage">蓝牙卡&表计版本管理</a></li>
+							
+					    	
+							   	<li><a class="menuItem" href="javascript:void(0)" url="/serviceHall/serviceHallManage">营业厅设置</a></li>
+							
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/cardGasController/cardGasManagerPage" >补卡补气原因</a></li>
+							
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/cardGasController/compCardGasManagerPage" >公司补卡补气原因</a></li>
+							
+						</ul>
+					</li>	
+						
+					
+					
+					<li><a href="javascript:void(0);" >上门服务城市配置</a>
+					 	<ul>
+					 		
+					 			<li><a class="menuItem" href="javascript:void(0)" url="/cityBigClass/toManagerPage" >服务大类管理</a></li>
+					 		
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/cityPlatformDevice/toManagerPage" >设备管理</a></li>	
+								
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/cityServiceClass/toManagerPage" >服务品类管理</a></li>	
+							
+												
+								<li><a class="menuItem" href="javascript:void(0)" url="/cityServiceItem/toManagerPage" >服务项目管理</a></li>	
+									
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/svcCityDescRel/toManagerPage" >服务需求管理</a></li>
+													
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/sysCityHiddenDangerMangerController/toSysCityHiddenDangerManger" >隐患内容管理</a></li>
+														
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/citymeterType/toMeterType" >表类型管理</a></li>
+						    
+							
+								<li><a class="menuItem" href="javascript:void(0)" url="/serviceClassFinance/toServiceClassFinance" >财务记账管理</a></li>
+						    
+						    
+						</ul>
+					</li>
+					
+				</ul>
+			</li>
+			
+			<!-- 9业务配置管理end -->
+			
+			<!-- 10 系统设置start  -->
+			
+				<li><a href="javascript:void(0);"><i class="fa fa-desktop"></i>系统设置</a>
+					<ul>
+						
+							<li><a class="menuItem" href="javascript:void(0)" url="/cityManage/toManagePage">城市管理</a></li>
+						
+						
+						
+						<li><a class="menuItem" href="javascript:void(0)" url="/sysDictionaryController/toSysDictionary" >平台字典管理</a></li>
+						
+						
+						
+						<li><a class="menuItem" href="javascript:void(0)" url="/svcCityDicController/toSvcCityDic" >城市字典管理</a></li>
+						
+						
+						
+							<li><a class="menuItem" href="javascript:void(0)" url="/systemSetting/messageSetting" >消息设置</a></li>
+						
+						
+						<li><a href="javascript:void(0);" >权限管理</a>
+							<ul>
+							  
+							   <li><a class="menuItem" href="javascript:void(0)" url="/userManage/toUserManagePage" >用户管理</a></li>
+							   
+							    
+							   <li><a class="menuItem" href="javascript:void(0)" url="/roleManager/roleManagerPage">角色管理</a></li>
+							   
+							</ul>
+						</li>
+						
+						
+							   <li><a class="menuItem" href="javascript:void(0)" url="/appManege/updateManagePage">APP更新管理</a></li>
+						
+						
+							   <li><a class="menuItem" href="javascript:void(0)" url="/sysSwitch/sysSwitchManagerPage">系统开关</a></li>
+						
+						
+							   <li><a class="menuItem" href="javascript:void(0)" url="/empModuleShowConf/empModuleShowConfPage">功能模块配置</a></li>
+						
+						
+							   <li><a class="menuItem" href="javascript:void(0)" url="/companyThirdPartySetting/companyThirdPartySettingPage">数据传输设置</a></li>
+						
+					</ul>
+				</li>
+			
+		</ul>
+	</nav>
+</body>
+</html>		
+		
+		<div class="content-wrapper">
+			<!-- 局部更新MOD -->
+			<div id="contentDiv"></div>
+			
+		</div>
+	</div>
+	<!-- 进度条 -->
+	<div id="progress" title="Basic dialog" style="display:none;" class="container">
+		<img alt=" " src="/assets/images/progress.gif">
+	</div>
+	
+<script src="/assets/js/jquery.min.js"  type="text/javascript"></script>
+<script src="/assets/js/jquery-form.js" type="text/javascript"></script>
+<script src="/assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/assets/bootstrap/js/main.js" type="text/javascript"></script>
+<script src="/assets/bootstrap/js/bootbox.min.js" type="text/javascript"></script>
+<script src="/assets/bootstrap/js/jquery.switch.js" type="text/javascript"></script>
+<!-- bootStrap_Table -->
+<script src="/assets/bootstrap/js/bootstrap-table.js" type="text/javascript"></script>
+<script src="/assets/bootstrap/js/bootstrap-table-zh-CN.js" type="text/javascript"></script>
+<script src="/assets/js/jquery.ui.js"  type="text/javascript"></script>
+<script src="/assets/js/parsley.min.js"  type="text/javascript"></script>
+<script src="/assets/js/parsley.extend.js" type="text/javascript"></script>
+<script src="/assets/js/jquery.validation.js" type="text/javascript"></script>
+<script src="/assets/js/zh_cn.extra.js" type="text/javascript"></script>
+<script src="/assets/js/zh_cn.js" type="text/javascript"></script>
+<!-- baidu API -->
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=8IZMrl1w13LV7w36OrV8ZiuQ"></script>
+<!-- <script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.js"></script> -->
+<script src="/assets/js/common.js" type="text/javascript"></script>
+<script src="/assets/js/tabTable.js"  type="text/javascript"></script>
+<script src="/assets/poss/common/jquery_extend.js"></script>
+<script> var ctx = ""; </script>  
+
+
+<!-- datapicker -->
+<script src="/assets/daterangepicker/moment.js"  type="text/javascript"></script>
+<script src="/assets/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+<script src="/assets/bootstrap/js/fileinput.js" type="text/javascript"></script>
+<script src="/assets/bootstrap/js/fileinpu-zh.js" type="text/javascript"></script>
+<script type="text/javascript" src="/assets/daterangepicker/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+
+<!-- bootstrap-select -->
+<script src="/assets/bootstrap-select/js/bootstrap-select.js" type="text/javascript"></script>
+<script src="/assets/bootstrap-select/js/i18n/defaults-zh_CN.min.js" type="text/javascript"></script>
+
+<!-- zTree_v3-master  -->
+<script type="text/javascript" src="/assets/zTree_v3-master/js/jquery.ztree.core.js" type="text/javascript"></script>
+<script type="text/javascript" src="/assets/zTree_v3-master/js/jquery.ztree.excheck.js" type="text/javascript"></script>
+
+<!-- opmall use -->
+<script type="text/javascript" src="/assets/js/zxxFile.js" type="text/javascript"></script>
+<script src="/assets/js/ckeditor/ckeditor.js" type="text/javascript"></script>
+
+	<script type="text/javascript">
+	
+		$(function(){
+			$(".menuItem").each(function(){
+				$(this).click(function(){
+					var url = $(this).attr("url");
+					//是否商城链接
+					if(url.indexOf("http:") > -1 ){
+						$("#contentDiv").html('<iframe src="'+url+'" width="100%" height="100%" frameborder="0"></iframe>');
+						$("body").addClass("frame");
+					}else{
+						$("#contentDiv").LinkSubmit(url, {}, false);
+						$("body").removeClass("frame");
+					}
+					$('html,body').animate({scrollTop:0},700);
+				});
+				
+			});
+			
+			//系统首次进入时，进入首页
+			$("#contentDiv").LinkSubmit('/welcome/toWelcomePage', {},false);
+			  // 点击logo
+		    $("#ecej_logo").click(function(){
+		        $("#contentDiv").LinkSubmit('/welcome/toWelcomePage', {},false);
+		    });
+			//鼠标移入移出弹出工具提示框
+			$(document).tooltip();
+		})
+	</script>	
+</body>
+</html>
