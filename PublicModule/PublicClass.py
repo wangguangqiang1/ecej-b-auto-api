@@ -8,7 +8,7 @@ __author__ = 'wgq'
 import sys
 import os
 import types
-sys.path.append(os.path.abspath('%s../../' % sys.path[0]))
+sys.path.append(os.path.abspath('%s../../../' % sys.path[0]))
 
 import unittest
 import requests
