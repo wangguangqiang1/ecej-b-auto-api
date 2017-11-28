@@ -1,14 +1,13 @@
 #! /user/bin/evn python
 # coding:utf-8
-import smtplib
-from email.mime.text import MIMEText
+
 
 __author__ = 'wgq'
 
 import sys
 import os
 import types
-sys.path.append(os.path.abspath('%s../../../' % sys.path[0]))
+sys.path.append(os.path.abspath('%s../../' % sys.path[0]))
 
 import unittest
 import requests
@@ -21,6 +20,8 @@ from RunClass import HTMLTestRunner
 
 from bs4 import BeautifulSoup
 from email.mime.multipart import MIMEMultipart
+import smtplib
+from email.mime.text import MIMEText
 
 from PublicModule.PublicCaseData import *
 
