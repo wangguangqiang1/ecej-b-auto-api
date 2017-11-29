@@ -9,6 +9,7 @@ import os
 
 sys.path.append(os.path.abspath('%s../../' % sys.path[0]))
 
+import random
 import urllib
 import urllib2
 import cookielib

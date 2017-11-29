@@ -13,6 +13,8 @@ from CaseForScenario.BCreateOrder import *
 from CaseForUserAPP.TestLoginLoginIndex import TestLoginLoginIndex
 from CaseForUserAPP.TestAddAddress1 import TestAddAddress1
 from CaseForUserAPP.TestOrderQueryCount import TestOrderQueryCount
+from CaseForUserAPP.TestBussinessCityListBybussinessInfo import TestBussinessCityListBybussinessInfo
+from CaseForUserAPP.TestBbsDevice import TestBbsDevice
 
 
 
@@ -22,6 +24,8 @@ def output():
     suite.addTest(TestLoginLoginIndex('test_001_normal_TestLoginLoginIndex'))
     suite.addTest(TestAddAddress1('test_TestAddAddress_001_nomnal'))
     suite.addTest(TestOrderQueryCount('test_001_normal_TestOrderQueryCount'))
+    suite.addTest(TestBussinessCityListBybussinessInfo('test_001_normal_TestBussinessCityListBybussinessInfo'))
+    suite.addTest(TestBbsDevice('test_001_normal_BbsDevice'))
 
     fileSearch = 'RunAllCase-' + time.strftime('%Y-%m', time.localtime(time.time()))  # 测试报告文件夹名称
     # fileSearch = 'RunAllCase-'+ '2017-04'
