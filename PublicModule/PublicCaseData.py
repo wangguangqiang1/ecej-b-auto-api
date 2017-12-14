@@ -23,9 +23,9 @@ wjb_token = 'a7e51662679e449b82579bf9411bb259'
 wjb_appKey = '20171109141913a78e933bc50491b0596b1bf8bc1f94f7'
 
 #员工端
-wgq_employees_appkey = '20171109182338b8597fb7bfa41b5d8820e73ab15e41e7'
+wgq_employees_appkey = '2017120411194080a8a39ecb870a8f887380b49f7eaa5a'
 wgq_employees_userId = '5106'
-wgq_employeesC_token = '4a89479b3b99432a9e1caed8a974168c'
+wgq_employeesC_token = 'b997527f0355465998d619d1ed82357b'
 
 #用户端host
 userAppHost1 = 'http://stbs.ecej.com:8081'
@@ -60,6 +60,7 @@ url_orderSynOrderInfo = employeesAppHost2+'/v1/order/synOrderInfo'#同步订单�
 url_CaptchaImage = 'https://st1busplatform.ecej.com/site/captchaImage?_=0.04913981744982122'
 
 
+
 # 邮件相关参数
 user = '707958420@qq.com' #邮箱账号
 pwd  = 'pjxorgckfzfvbeib' #邮箱授权口令
@@ -83,21 +84,18 @@ wjb_create_addAddress_localData = {
 
 
 
-LoginUrl = "http://stadm.ecej.com:8081/login/login"
-vrifycodeUrl = "https://stbusplatform.ecej.com/site/captchaImage"
+# LoginUrl = "http://stadm.ecej.com:8081/login/login"
+# vrifycodeUrl = "https://stbusplatform.ecej.com/site/captchaImage"
 #
-# headers = {
-#             'Host': 'st1platform.ecej.com:8081',
-#             'Connection': 'keep-alive',
-#             'Accept': 'application/json, text/plain, */*',
-#             'X-Requested-With': 'XMLHttpRequest',
-#             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
-#             'Referer': 'http://st1platform.ecej.com:8081/base/html/nav.html',
-#             'Accept-Encoding': 'gzip, deflate, sdch',
-#             'Accept-Language': 'zh-CN,zh;q=0.8,en;q=0.6',
-#             'Cookie': 'UM_distinctid=15f37c27189bb-0f2902f15f508e-5d4e211f-1fa400-15f37c2718a6a2; SESSION=4d11e062-099c-45b4-8a51-a709ffe8d68f'
-# }
-# url = 'http://st1platform.ecej.com:8081/base/getLoginName'
-# res = requests.get(LoginUrl,headers = headers)
-# print res
+# resCityChoose = requests.get(vrifycodeUrl)
+# cookie = requests.utils.dict_from_cookiejar(resCityChoose.cookies).get('SESSION')
+# print cookie
 
+
+
+#共用数据
+cityId = 2222#城市id
+bussinessId = 361 #商家id
+deviceId = 54#商品id
+bigClassId = 997
+serviceClassId= 1184

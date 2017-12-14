@@ -158,24 +158,140 @@ def orderOrderService(token, appKey, workOrderId):
     requestData['workOrderId'] = workOrderId  # 工作单ID
     res = postRequest(url_orderOrderService, requestData)
     return res
-# orderOrderService(wgq_employeesC_token,wgq_employees_appkey,1549136)
+# orderOrderService(wgq_employeesC_token,wgq_employees_appkey,177649)
 #提交订单
 def orderSubmit(token, appKey, workOrderId):
     requestData = {'token': token, 'appKey': appKey}  # 等于必传参数
     requestData['workOrderId'] = workOrderId  # 工作单ID
     res = postRequest(url_orderSubmit, requestData)
     return res
-# orderSubmit(wgq_employeesC_token,wgq_employees_appkey,1549136)
+# orderSubmit(wgq_employeesC_token,wgq_employees_appkey,177649)
 
 #B端增加地址
 def creat_AddAddress(localData):
     res = postRequest(url_AddAddress,localData)
     return res
 
+#同步订单
+def orderSynOrderInfoForZJ(token,appKey,workOrderNo,workOrderId):
+    workOrderInfo = {"serviceClassId":1184,
+                     "userId":2479926,
+                     "arriveTime":1512367990000,
+                     "province":"",
+                     "businessId":361,
+                     "parentOrderNo":"",
+                     "reassignmentFlag":0,
+                     "bussinessAddress":"周口市川汇区",
+                     "faultDesc":"","channelId":0,
+                     "headImage":"187bd8da34708756020e3f2d420a017f",
+                     "activityId":0,
+                     "remindFlag":0,
+                     "orderStatus":6,
+                     "empName":"王广强",
+                     "changeReason":"",
+                     "signStatus":0,
+                     "longitude":114.69,
+                     "vipCard":0,
+                     "bussinessRelationId":36,
+                     "workOrderId":workOrderId,
+                     "registerMobile":"18518980784",
+                     "originalPrice":0.00,
+                     "empId":3184,
+                     "latitude":33.64,
+                     "district":"",
+                     "bussinessContactName":"王强",
+                     "serialVersionUID":1,
+                     "dispatchTime":1512367961000,
+                     "housePropertyId":0,
+                     "userAddressId":28953,
+                     "originalOrderNo":"",
+                     "reassignmentCount":0,
+                     "orderSource":16,
+                     "detailAddress":"刑罗",
+                     "mobileNo":"11118980000",
+                     "paidMoney":0.00,
+                     "bussinessName":"王广强商家",
+                     "workOrderNo":workOrderNo,
+                     "stationHeadId":0,
+                     "thirdOrderNo":"",
+                     "city":"周口",
+                     "userLevelTaskDetailId":0,
+                     "community":"周口师范学院",
+                     "empExpectVisitTime":1512399600000,
+                     "upgradeFlag":0,
+                     "syncFlag":0,
+                     "bookEndTime":1512401400000,
+                     "stationId":35200250,
+                     "extensionChannel":"",
+                     "thirdCollectMoney":0.00,
+                     "bussinessMobileNo":"18518980783",
+                     "payableMoney":0.00,
+                     "empExpectEndTime":1512401400000,
+                     "combinationFlag":0,
+                     "TABLE_NAME":"svc_work_order",
+                     "bookStartTime":1512399600000,
+                     "TABLE_ALIAS":"SvcWorkOrder",
+                     "channelName":"E城E家",
+                     "serviceClassName":"马桶下水疏通",
+                     "payType":0,
+                     "departTime":1512367973000,
+                     "contactsMobile":"18518980784",
+                     "reductionDetail":"",
+                     "createTime":1512359224000,
+                     "bussinessDictId":2,
+                     "remindCount":0,
+                     "adjustPriceReason":" ",
+                     "syncFailTimes":0,
+                     "orderType":1,
+                     "contactsName":"王广强"}
+    serviceItemInfo = {"combinationId":0,
+                       "ecejPrice":35.00,
+                       "isThreepartyMerchanCost":1,
+                       "itemId":212,
+                       "itemName":"马桶下水疏通-拆马桶",
+                       "maintenanceChannelId":0,
+                       "merchanSettleAmount":111.00,
+                       "needPhotoFlag":0,
+                       "orderOperationRole":4,
+                       "orderType":105,
+                       "paidMoney":0.00,
+                       "quantity":1,
+                       "receivableMoney":111.00,
+                       "reductionDetail":"",
+                       "serviceClassId":1184,
+                       "serviceClassName":"",
+                       "serviceItemId":19674,
+                       "unitPrice":111.00,
+                       "workOrderId":workOrderId}
+    serverOrderIdentify = {"arriveLocation":"116.490282,40.012847",
+                           "departLocation":"116.490282,40.012847",
+                           "serverAddress":"刑罗",
+                           "serverLocation":"114.689,33.6415",
+                           "submitLocation":"116.490282,40.012847",
+                           "submitTime":1512367997000,
+                           "svcServerOrderIdentifyId":5,
+                           "workOrderNo":workOrderNo}
+    requestData = {'token':token,'appKey':appKey,
+                    'meterOperationHistoryInfo':	[],
+                    'pivotalPlaceRecord':	[],
+                    'workOrderInfo':	json.dumps(workOrderInfo),
+                    'protectionCardInfo':	[],
+                    'housePropertyId':0,
+                    'materialUsedInfo':[],
+                    'mdHiddenDangerInfo':	[],
+                    'hiddenDangerOrderInfo':[],
+                    'serviceItemInfo':[json.dumps(serviceItemInfo)],
+                    'serverOrderIdentify':json.dumps(serverOrderIdentify),
+                    'securityCheckItem':[],
+                    'fittingInfo':	[],
+                    'meterInfo':[],
+                    'online':1,
+                    'equipmentInfo	':[],
+                    'meterReadInfo':	[],}
+    res =requests.post(url_orderSynOrderInfo,requestData)
+    return res
 
 
-
-#
 # cookiejar = cookielib.MozillaCookieJar()
 # # 将一个保存cookie对象，和一个HTTP的cookie的处理器绑定
 # cookieSupport = urllib2.HTTPCookieProcessor(cookiejar)
