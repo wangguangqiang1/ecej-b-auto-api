@@ -19,8 +19,8 @@ class TestLoginLoginIndex(unittest.TestCase):  #测试“登陆接口”接口
         self.url = url_LoginIndex#接口地址
         self.localData={}
         self.localData['appKey'] = wgq_appkey
-        self.localData['tel'] = 18518980784
-        self.localData['password'] = '25F9E794323B453885F5181F1B624D0B'
+        self.localData['tel'] = tel
+        self.localData['password'] = password
 
     def tearDown(self):
         pass

@@ -21,8 +21,8 @@ class TestBbsDevice(unittest.TestCase):  #测试“在线的设备接口”接�
         self.url = url_Device#在线设备接口
         self.localData = {}
         self.localData['appKey'] = wgq_appkey
-        self.localData['bussinessId'] = 361#商家ID
-        self.localData['cityId'] = 2222 #城市id
+        self.localData['bussinessId'] = bussinessId#商家ID
+        self.localData['cityId'] = cityId #城市id
         self.localData['token'] = wgq_token
 
     def tearDown(self):

@@ -21,9 +21,9 @@ class TestBbsServiceClassAndItem(unittest.TestCase):  #测试“B端在线的品
         self.url = url_ServiceClassAndItem
         self.localData = {}
         self.localData['appKey'] = wgq_appkey
-        self.localData['bussinessId'] = 361
-        self.localData['cityId'] = 2222
-        self.localData['deviceId'] = 54
+        self.localData['bussinessId'] = bussinessId
+        self.localData['cityId'] = cityId
+        self.localData['deviceId'] = deviceId
         self.localData['token'] = wgq_token
 
     def tearDown(self):

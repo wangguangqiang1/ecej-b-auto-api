@@ -21,7 +21,7 @@ class TestBussinessCityListBybussinessInfo(unittest.TestCase):  #测试“根据
         self.url = url_CityListBybussinessInfo#获取商户服务的城市url
         self.localData = {}
         self.localData['appKey'] = wgq_appkey
-        self.localData['bussinessId'] = 361#商户ID
+        self.localData['bussinessId'] = bussinessId#商户ID
         self.localData['token'] =wgq_token
     def tearDown(self):
         pass

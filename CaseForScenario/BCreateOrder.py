@@ -50,25 +50,31 @@ class BCreateOrder(unittest.TestCase):
         # print res
         workOrderId = res.get(u'data').get(u'workOrderId')#获取workOrderId
         workOrderStatus = res.get(u'data').get(u'workOrderStatus')#获取订单状态
-        # Time = 40
-        # while Time:
-        #     if workOrderStatus == 2:
-        #         print u'已派工'
-        #         break
-        #     else:
-        #         time.sleep(5)
-        #         res = getOrderDetailInfo(wgq_token, wgq_appkey, workOrderNo)  # 订单详情
-        #         workOrderStatus = res.get(u'data').get(u'workOrderStatus')  # 获取订单状态
-        #         Time-=5
-        #         if Time ==0:
-        #             print u'派工失败'
+        Time = 40
+        while Time:
+            if workOrderStatus == 2:
+                print u'已派工'
+                break
+            else:
+                time.sleep(5)
+                res = getOrderDetailInfo(wgq_token, wgq_appkey, workOrderNo)  # 订单详情
+                workOrderStatus = res.get(u'data').get(u'workOrderStatus')  # 获取订单状态
+                Time-=5
+                if Time ==0:
+                    print u'派工失败'
 
         #用户端处理订单
         orderOrderGoto(wgq_employeesC_token, wgq_employees_appkey, workOrderId)  # 师傅出发
 
+
         orderOrderService(wgq_employeesC_token, wgq_employees_appkey, workOrderId)  # 师傅上门
 
+
         orderSubmit(wgq_employeesC_token, wgq_employees_appkey, workOrderId)  # 提交订单
+
+        orderSynOrderInfoForZJ(wgq_employeesC_token,wgq_employees_appkey,workOrderNo,workOrderId)#同步
+
+
 
 
     
