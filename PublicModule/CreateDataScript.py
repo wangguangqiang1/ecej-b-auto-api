@@ -84,7 +84,7 @@ def getRecommendTime(token,appKey,userId):
     requestData['communityName'] = "周口师范学院"
     requestData['latitude'] = "33.641472"
     requestData['longitude'] = "114.689163"
-    requestData['serviceClassId'] = 1184
+    requestData['serviceClassId'] = 1177
     requestData['bigClassId'] = 997
     requestData['uid'] = "127D1C8F-D782-4F9F-A361-DD2915BB1FE5"
     requestData['userId'] = userId
@@ -98,8 +98,8 @@ def createThreePartOrder(token,appKey,workDate,startTime,endTime,userId,userAddr
               "userId" : userId,
               "guid" : "127D1C8F-D782-4F9F-A361-DD2915BB1FE5",
               "empType" : "1",
-              "deviceId" : "54",
-              "serviceClassId" : "1184",
+              "deviceId" : "50",
+              "serviceClassId" : "1177",
               "workDate" : workDate,
               "bigClassId" : "997",
               "faultDesc" : "",
@@ -121,10 +121,10 @@ def createThreePartOrder(token,appKey,workDate,startTime,endTime,userId,userAddr
               },
               "startTime" : startTime,
               "serviceItemEntity" : {
-                "serviceItemId" : "212",
+                "serviceItemId" : "201",
                 "num" : "1",
                 "serviceMoney" : "0",
-                "serviceClassId" : "1184"
+                "serviceClassId" : "1177"
               },
               "channelId" : "0",
               "userAddressId" : userAddressId
